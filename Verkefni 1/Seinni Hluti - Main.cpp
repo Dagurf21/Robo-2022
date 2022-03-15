@@ -18,12 +18,13 @@
 #include "vex.h"
 
 using namespace vex;
+// Fall til að beygja til hægri og keyra 500mm eða 0,5m
 void haegri(){
   Drivetrain.turnFor(right, 90, degrees);
   Drivetrain.driveFor(forward, 500, mm);
 }
+// Fall til að beygja til vinstri og keyra 500mm eða 0,5m
 void vinstri(){
-
   Drivetrain.turnFor(left, 90, degrees);
   Drivetrain.driveFor(forward, 500, mm);
 }
@@ -31,8 +32,8 @@ void vinstri(){
 int main() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
-  // turns the robot right 90 degrees
-
+  
+  // Keyra áfram 500mm eða 0,5m
   Drivetrain.driveFor(forward, 500, mm);
   haegri();
   vinstri();
