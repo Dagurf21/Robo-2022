@@ -22,11 +22,15 @@ using namespace vex;
 
 int main() {
 
+  // Sett upp variable fyrir lengd til að keyra í mm
   int drive_distance = 500;
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
+  // Á meðan við höfum keyrt áfram minna en 2500mm eða 2,5m
   while(drive_distance < 2501){
+    // keyra áfram 500mm eða 0,5m
     Drivetrain.driveFor(forward, drive_distance, mm);
+    // Bakka 500mm eða 0,5m
     Drivetrain.driveFor(reverse, drive_distance, mm);
     drive_distance = drive_distance + 500;
   }
