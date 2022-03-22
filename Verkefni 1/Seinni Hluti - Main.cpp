@@ -18,35 +18,23 @@
 #include "vex.h"
 
 using namespace vex;
-// Fall til að beygja til hægri og keyra 500mm eða 0,5m
-void haegri(){
-  Drivetrain.turnFor(right, 90, degrees);
-  Drivetrain.driveFor(forward, 500, mm);
-}
-// Fall til að beygja til vinstri og keyra 500mm eða 0,5m
-void vinstri(){
-  Drivetrain.turnFor(left, 90, degrees);
-  Drivetrain.driveFor(forward, 500, mm);
-}
 
 int main() {
-  // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
-  
-  // Keyra áfram 500mm eða 0,5m
+  Drivetrain.setDriveVelocity(50,rpm);
+  Drivetrain.setTurnVelocity(50,rpm);
   Drivetrain.driveFor(forward, 500, mm);
-  haegri();
-  vinstri();
-  vinstri();
-  haegri();
-  haegri();
-  vinstri();
-  haegri();
-  haegri();
-  vinstri();
-  haegri();
-  haegri();
-  vinstri();
-  vinstri();
-  haegri();
-}
+  
+  bool listi[14] ={1,0,0,1,1,0,1,1,0,1,1,1,0,0};
+
+  for(int i =0;i<14;1++){
+    Drivetrain.driveFor(forward, 500, mm);
+    if (listi[i] == 0){
+      Drivetrain.turnFor(left, 90, degrees);
+    }
+    else;
+      Drivetrain.turnFor(right, 90, degrees);
+  }
+    Drivetrain.driveFor(forward, 500, mm);
+
+
