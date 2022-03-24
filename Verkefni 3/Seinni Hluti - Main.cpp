@@ -14,6 +14,8 @@
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
 // Vision5              vision        9               
+// BumperA              bumper        A               
+// Controller1          controller                    
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -63,7 +65,7 @@ void hasGreenCallback() {
   }
 }
 
-int main() {
+int userThread() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
 
@@ -77,4 +79,19 @@ int main() {
     checkGreen.broadcastAndWait();
     wait(1, seconds);
   }
+}
+
+int main()
+{
+    vex::thread ut(userThread);
+
+    while(1) // emergency stop loop
+    {
+      if( BumperA || Controller1.ButtonA.pressing())
+      {
+            ut.interrupt();  // stop user thread
+            return 0;
+      }
+      this_thread::sleep_for( 10 );
+    }
 }
