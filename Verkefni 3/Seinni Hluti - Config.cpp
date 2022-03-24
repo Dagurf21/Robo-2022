@@ -14,10 +14,12 @@ signature Vision5__GREENBOX = signature (2, -5767, -4965, -5366, -3803, -2861, -
 signature Vision5__REDBOX = signature (3, 8099, 8893, 8496, -1505, -949, -1227, 2.5, 0);
 vision Vision5 = vision (PORT9, 50, Vision5__BLUEBOX, Vision5__GREENBOX, Vision5__REDBOX);
 /*vex-vision-config:end*/
+bumper BumperA = bumper(Brain.ThreeWirePort.A);
+controller Controller1 = controller(primary);
 
 // VEXcode generated functions
-
-
+// define variable for remote controller enable/disable
+bool RemoteControlCodeEnabled = true;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
