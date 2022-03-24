@@ -1,80 +1,29 @@
-/*----------------------------------------------------------------------------*/
-/*                                                                            */
-/*    Module:       main.cpp                                                  */
-/*    Author:       VEX                                                       */
-/*    Created:      Fri Sep 27 2019                                           */
-/*    Description:  V5 project                                                */
-/*                                                                            */
-/*    This project will detect 3 different colored objects and display        */
-/*    when each object is found on the V5 Brain's screen.                     */
-/*                                                                            */
-/*----------------------------------------------------------------------------*/
-
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Vision5              vision        9               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-
 #include "vex.h"
 
 using namespace vex;
+using signature = vision::signature;
+using code = vision::code;
 
-event checkRed = event();
-event checkBlue = event();
-event checkGreen = event();
+// A global instance of brain used for printing to the V5 Brain screen
+brain  Brain;
 
-void hasBlueCallback() {
-  Brain.Screen.setFont(mono40);
-  Brain.Screen.clearLine(1, black);
-  Brain.Screen.setCursor(Brain.Screen.row(), 1);
-  Brain.Screen.setCursor(1, 1);
-  Vision5.takeSnapshot(Vision5__BLUEBOX);
-  if (Vision5.objectCount > 0) {
-    Brain.Screen.print("Blár - Já");
-  } else {
-    Brain.Screen.print("Blár - Nei");
-  }
-}
+// VEXcode device constructors
+/*vex-vision-config:begin*/
+signature Vision5__BLUEBOX = signature (1, -3441, -2785, -3113, 8975, 10355, 9665, 2.5, 0);
+signature Vision5__GREENBOX = signature (2, -5767, -4965, -5366, -3803, -2861, -3332, 2.5, 0);
+signature Vision5__REDBOX = signature (3, 8099, 8893, 8496, -1505, -949, -1227, 2.5, 0);
+vision Vision5 = vision (PORT9, 50, Vision5__BLUEBOX, Vision5__GREENBOX, Vision5__REDBOX);
+/*vex-vision-config:end*/
 
-void hasRedCallback() {
-  Brain.Screen.setFont(mono40);
-  Brain.Screen.clearLine(3, black);
-  Brain.Screen.setCursor(Brain.Screen.row(), 1);
-  Brain.Screen.setCursor(3, 1);
-  Vision5.takeSnapshot(Vision5__REDBOX);
-  if (Vision5.objectCount > 0) {
-    Brain.Screen.print("Rauður - Já");
-  } else {
-    Brain.Screen.print("Rauður - Nei");
-  }
-}
+// VEXcode generated functions
 
-void hasGreenCallback() {
-  Brain.Screen.setFont(mono40);
-  Brain.Screen.clearLine(5, black);
-  Brain.Screen.setCursor(Brain.Screen.row(), 1);
-  Brain.Screen.setCursor(5, 1);
-  Vision5.takeSnapshot(Vision5__GREENBOX);
-  if (Vision5.objectCount > 0) {
-    Brain.Screen.print("Grænn - Já");
-  } else {
-    Brain.Screen.print("Grænn - Nei");
-  }
-}
 
-int main() {
-  // Initializing Robot Configuration. DO NOT REMOVE!
-  vexcodeInit();
 
-  checkBlue(hasBlueCallback);
-  checkRed(hasRedCallback);
-  checkGreen(hasGreenCallback);
-  
-  while (true) {
-    checkBlue.broadcastAndWait();
-    checkRed.broadcastAndWait();
-    checkGreen.broadcastAndWait();
-    wait(1, seconds);
-  }
+/**
+ * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
+ * 
+ * This should be called at the start of your int main function.
+ */
+void vexcodeInit( void ) {
+  // nothing to initialize
 }
